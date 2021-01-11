@@ -8,3 +8,4 @@ Script based on `youtube-dl` [module](https://github.com/ytdl-org/youtube-dl), a
 
 ## In Windows
 You can use `exe` file in `dist` folder.
+![executable](pics/pic1.png)
