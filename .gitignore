@@ -1,7 +1,10 @@
 /dist/*.exe
+*.mp3
 *.ico
 *.txt
 *.spec
 *_tmp*
 /venv
 /build
+/__pycache__
+/.idea

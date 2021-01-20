@@ -7,7 +7,12 @@ import os
 import re
 
 
-def simplify_string(string: str):
+def simplify_string(string: str) -> str:
+    """Remove special symbols end extra spaces.
+
+    :param string: what is needed to simplify
+    :return: simplified string
+    """
     simpl1 = re.sub(r'[/,~&№^:;+%@!?#*{}|()<>`\"\'\[\]\\]', '', string)
     simpl2 = re.sub(r'[ ]+', ' ', simpl1)
     return simpl2
@@ -19,15 +24,16 @@ def my_hook(d):
 
 
 ydl_opts = {
+    'writethumbnail': True,
     'format': 'bestaudio/best',
     'writeinfojson': True,
-    # 'writethumbnail': True,
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
+    'outtmpl': '%(title)s.%(ext)s',
     'progress_hooks': [my_hook],
+    'postprocessors': [
+        {'key': 'FFmpegExtractAudio',
+         'preferredcodec': 'mp3',
+         'preferredquality': '192'},
+        {'key': 'EmbedThumbnail'}]
 }
 
 with open('tasklist.txt') as f:
@@ -49,7 +55,6 @@ for file in os.listdir('./'):
             title = simplify_string(info.get('title', '-'))
             print('Setting id3 tags to ', title)
             audiofile = eyed3.load(file)
-            audiofile.initTag()
             audiofile.tag.recording_date = Date(int(info['upload_date'][:4]),
                                                 month=int(info['upload_date'][4:6]),
                                                 day=int(info['upload_date'][6:]))
