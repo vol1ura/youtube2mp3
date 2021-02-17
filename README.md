@@ -17,3 +17,7 @@ Script based on `youtube-dl` [module](https://github.com/ytdl-org/youtube-dl), a
 You can use `exe` file in `dist` folder - no need to install Python interpreter.
 
 ![Executable](pics/pic1.png)
+
+## Result in audiopleer
+
+![Executable](pics/pic2.png)
