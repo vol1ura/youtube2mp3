@@ -2,9 +2,12 @@
 *.mp3
 *.ico
 *.txt
+!requirements.txt
 *.spec
 *_tmp*
 /venv
 /build
 /__pycache__
+/tests/__pycache__
+/.pytest_cache
 /.idea

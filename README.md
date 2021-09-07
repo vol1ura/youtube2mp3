@@ -1,3 +1,9 @@
+[![Quality&Tests](https://github.com/vol1ura/youtube2mp3/actions/workflows/python-app.yml/badge.svg)](https://github.com/vol1ura/youtube2mp3/actions/workflows/python-app.yml)
+[![Code Style](https://img.shields.io/badge/Code%20Style-PEP%208-blueviolet)](https://www.python.org/dev/peps/pep-0008/)
+[![codecov](https://codecov.io/gh/vol1ura/youtube2mp3/branch/master/graph/badge.svg)](https://codecov.io/gh/vol1ura/youtube2mp3)
+![GitHub](https://img.shields.io/github/license/vol1ura/youtube2mp3)
+![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen)
+
 # YouTube to mp3 download and convert
 Simple Python script to download youtube videos and playlists to mp3 format.
 Script based on `youtube-dl` [module](https://github.com/ytdl-org/youtube-dl), and also uses `eyed3` module to add id3 tags.
@@ -11,7 +17,7 @@ Script based on `youtube-dl` [module](https://github.com/ytdl-org/youtube-dl), a
 ## Using
 * You need install [ffmpeg](https://www.ffmpeg.org/) to script be able to convert files into mp3.
 * Add links to `tasklist.txt`. It can be both videos and playlists.
-* Run script.
+* Run script `youtube2mp3.py tasklist.txt`.
 
 ## In Windows
 You can use `exe` file in `dist` folder - no need to install Python interpreter.
