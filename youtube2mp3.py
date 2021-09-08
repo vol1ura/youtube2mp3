@@ -31,7 +31,7 @@ def set_id3_tag(file: str, info: dict) -> None:
     audiofile.tag.title = simplify_string(info.get('title', '-'))
     audiofile.tag.artist = upl
     audiofile.tag.album = simplify_string(info.get('uploader', file[:-4]))
-    audiofile.tag.album_artist = upl if not info.get('tags', '') else info.get('tags', ['-'])[0]
+    audiofile.tag.album_artist = upl if 'tags' not in info else info.get('tags', ['-'])[0]
     audiofile.tag.save()
 
 
@@ -72,18 +72,20 @@ def download_task_list(task_list: str) -> None:
 def process_downloaded_mp3() -> None:
     """Function sets mp3 tags, renames files and removes temporary files."""
     for file in os.listdir(os.curdir):
-        if file.lower().endswith('.mp3'):
-            file_name = file[:-4]
-            info_json = file_name + '.info.json'
-            if os.path.exists(info_json):
-                with open(info_json) as jf:
-                    info = json.load(jf)
-                title = simplify_string(info.get('title', '-'))
-                print('[info] Setting id3 tags to', title)
-                set_id3_tag(file, info)
-                simpl_name = simplify_string((title.replace(' - ', '_') + '.mp3').replace('..', '.'))
-                os.rename(file, simpl_name)
-                os.remove(info_json)
+        if not file.lower().endswith('.mp3'):
+            continue
+        file_name = file[:-4]
+        info_json = file_name + '.info.json'
+        if not os.path.exists(info_json):
+            continue
+        with open(info_json) as jf:
+            info = json.load(jf)
+        title = simplify_string(info.get('title', '-'))
+        print('[info] Setting id3 tags to', title)
+        set_id3_tag(file, info)
+        simpl_name = simplify_string((title.replace(' - ', '_') + '.mp3').replace('..', '.'))
+        os.rename(file, simpl_name)
+        os.remove(info_json)
 
 
 if __name__ == '__main__':  # pragma: no cover
