@@ -3,6 +3,7 @@ import os
 
 import eyed3
 import pytest as pytest
+import youtube_dl
 
 import youtube2mp3
 
@@ -62,5 +63,15 @@ def test_set_id3_tag(tmpdir):
     assert audiofile.tag.album_artist == info['tags'][0]
 
 
-def test_download_task_list():
-    pass
+def test_download_task_list(monkeypatch, tmpdir, capsys):
+    task_list = tmpdir.join('task_list.txt')
+    task_list.write('test')
+
+    def mock_download_error(*args):
+        raise youtube_dl.DownloadError('test download error')
+
+    monkeypatch.setattr(youtube_dl.YoutubeDL, 'download', mock_download_error)
+    youtube2mp3.download_task_list(task_list)
+    out, err = capsys.readouterr()
+    assert '[error]' in out
+    assert err == ''
