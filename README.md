@@ -6,10 +6,10 @@
 
 # YouTube to mp3 download and convert
 Simple Python script to download youtube videos and playlists to mp3 format.
-Script based on `youtube-dl` [module](https://github.com/ytdl-org/youtube-dl), and also uses `eyed3` module to add id3 tags.
+Script based on `yt-dlp` [module](https://github.com/yt-dlp/yt-dlp), and also uses `eyed3` module to add id3 tags.
 
 ## Features
-* Simplified names of mp3 files 
+* Simplified names of mp3 files
 * Special symbols is removed
 * Embedded thumbnails
 * Added id3 tags with authors and descriptions
