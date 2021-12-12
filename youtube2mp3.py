@@ -90,7 +90,7 @@ def process_downloaded_mp3() -> None:
                 os.remove(info_json)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     download_task_list(sys.argv[1])
     process_downloaded_mp3()
 
