@@ -3,7 +3,7 @@ import os
 
 import eyed3
 import pytest as pytest
-import youtube_dl
+import yt_dlp
 
 import youtube2mp3
 
@@ -54,7 +54,7 @@ def test_set_id3_tag(tmpdir):
         'title': 'Bear with a guitar',
         'tags': ['CC BY 4.0']
     }
-    youtube2mp3.set_id3_tag(str(tmp_file), info)
+    youtube2mp3.set_id3_tag(str(tmp_file), info, info['title'])
     audiofile = eyed3.load(tmp_file)
     assert audiofile.tag.recording_date.year == 2018
     assert audiofile.tag.title == info['title']
@@ -68,9 +68,9 @@ def test_download_task_list(monkeypatch, tmpdir, capsys):
     task_list.write('test')
 
     def mock_download_error(*args):
-        raise youtube_dl.DownloadError('test download error')
+        raise yt_dlp.DownloadError('test download error')
 
-    monkeypatch.setattr(youtube_dl.YoutubeDL, 'download', mock_download_error)
+    monkeypatch.setattr(yt_dlp.YoutubeDL, 'download', mock_download_error)
     youtube2mp3.download_task_list(task_list)
     out, err = capsys.readouterr()
     assert '[error]' in out
